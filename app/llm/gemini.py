@@ -28,6 +28,7 @@ class GeminiProvider(LLMProvider):
         )
 
         self.model_name = settings.model_name
+        self.logger.info(f"Using Gemini model: {self.model_name}")
 
     def generate(
         self,

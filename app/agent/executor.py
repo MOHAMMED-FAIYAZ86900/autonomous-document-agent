@@ -29,7 +29,7 @@ class Executor:
         Execute the generated plan.
         """
 
-        self.logger.info("Document generation started.")
+        self.logger.info("AI content generation started.")
 
         state.status = "executing"
 
@@ -44,7 +44,7 @@ class Executor:
             state.status = "executed"
 
             self.logger.info(
-                "Document generated successfully."
+                "AI content generated successfully."
             )
 
             return state

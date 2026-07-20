@@ -12,30 +12,30 @@ class LLMRequest(BaseModel):
 
     prompt: str = Field(
         ...,
-        description="Prompt sent to the language model."
+        description="Prompt sent to the language model.",
     )
 
     system_prompt: str | None = Field(
         default=None,
-        description="Optional system instruction."
+        description="Optional system instruction.",
     )
 
     temperature: float = Field(
         default=0.3,
         ge=0.0,
         le=2.0,
-        description="Sampling temperature."
+        description="Sampling temperature.",
     )
 
     max_tokens: int = Field(
         default=2048,
         gt=0,
-        description="Maximum number of output tokens."
+        description="Maximum number of output tokens.",
     )
 
     response_as_json: bool = Field(
         default=False,
-        description="Whether structured JSON output is requested."
+        description="Whether structured JSON output is requested.",
     )
 
 
@@ -46,20 +46,20 @@ class LLMResponse(BaseModel):
 
     content: str = Field(
         ...,
-        description="Generated response text."
+        description="Generated response text.",
     )
 
     model: str = Field(
         ...,
-        description="Model used for generation."
+        description="Model used for generation.",
     )
 
     success: bool = Field(
         default=True,
-        description="Whether the request completed successfully."
+        description="Whether the request completed successfully.",
     )
 
     finish_reason: str | None = Field(
         default=None,
-        description="Reason generation stopped."
+        description="Reason generation stopped.",
     )

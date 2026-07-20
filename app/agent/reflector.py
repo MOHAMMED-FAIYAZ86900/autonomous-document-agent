@@ -37,8 +37,8 @@ class Reflector:
 
         try:
 
-            response = self.llm.review_document(
-                state.generated_content
+            response = self.llm.reflect(
+            state.generated_content
             )
 
             state.reflection = response.content

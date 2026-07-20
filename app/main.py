@@ -27,11 +27,11 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title=settings.APP_NAME,
-    version=settings.APP_VERSION,
+    title=settings.app_name,
+    version=settings.app_version,
     description=(
-        "Autonomous AI Document Generation Agent "
-        "built with FastAPI and Gemini."
+    "Autonomous AI Document Generation Agent "
+    "built with FastAPI and Groq."
     ),
     lifespan=lifespan,
 )
@@ -49,9 +49,9 @@ async def root() -> dict[str, str]:
     """
     return {
         "message": (
-            f"Welcome to {settings.APP_NAME}"
+            f"Welcome to {settings.app_name}"
         ),
-        "version": settings.APP_VERSION,
+        "version": settings.app_version,
         "docs": "/docs",
         "health": "/health",
     }

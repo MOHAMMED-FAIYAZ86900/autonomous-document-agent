@@ -15,18 +15,22 @@ class StorageManager:
     Handles all document storage operations.
     """
 
-    def __init__(self) -> None:
+    def __init__(
+    self,
+    storage_path: Path | None = None,
+) -> None:
+
         self.logger = get_logger(__name__)
 
         self.storage_path = (
-            settings.STORAGE_DIR
-            / "generated_docs"
-        )
+        storage_path
+        or settings.output_dir
+    )
 
         self.storage_path.mkdir(
-            parents=True,
-            exist_ok=True,
-        )
+        parents=True,
+        exist_ok=True,
+    )
 
     def save_document(
         self,

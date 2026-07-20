@@ -7,6 +7,7 @@ from app.agent.planner import Planner
 from app.agent.reflector import Reflector
 from app.agent.state import AgentState
 from app.core.logging import get_logger
+from app.document.generator import DocumentGenerator
 
 
 class AgentOrchestrator:
@@ -19,6 +20,7 @@ class AgentOrchestrator:
 
         self.planner = Planner()
         self.executor = Executor()
+        self.generator = DocumentGenerator()
         self.reflector = Reflector()
 
     def run(
@@ -29,24 +31,31 @@ class AgentOrchestrator:
         Execute the complete autonomous workflow.
         """
 
-        self.logger.info(
-            "Agent execution started."
-        )
+        self.logger.info("Agent execution started.")
 
         state = AgentState(
             user_request=user_request
         )
 
+        # Step 1: Planning
         state = self.planner.plan(state)
 
         if state.status == "failed":
             return state
 
+        # Step 2: Generate AI content
         state = self.executor.execute(state)
 
         if state.status == "failed":
             return state
 
+        # Step 3: Generate DOCX
+        state = self.generator.generate(state)
+
+        if state.status == "failed":
+            return state
+
+        # Step 4: Reflection
         state = self.reflector.review(state)
 
         if state.status == "failed":
