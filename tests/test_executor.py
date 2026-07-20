@@ -31,9 +31,7 @@ class FailingLLMService:
         self,
         execution_plan: str,
     ):
-        raise RuntimeError(
-            "Document generation failed"
-        )
+        raise RuntimeError("Document generation failed")
 
 
 def test_execute_success():
@@ -42,9 +40,7 @@ def test_execute_success():
     document successfully.
     """
 
-    executor = Executor(
-        llm_service=FakeLLMService()
-    )
+    executor = Executor(llm_service=FakeLLMService())
 
     state = AgentState(
         user_request="Create proposal",
@@ -55,10 +51,7 @@ def test_execute_success():
 
     assert result.status == "executed"
 
-    assert (
-        result.generated_content
-        == "Generated proposal document"
-    )
+    assert result.generated_content == "Generated proposal document"
 
     assert result.errors == []
 
@@ -69,9 +62,7 @@ def test_execute_failure():
     LLM failures.
     """
 
-    executor = Executor(
-        llm_service=FailingLLMService()
-    )
+    executor = Executor(llm_service=FailingLLMService())
 
     state = AgentState(
         user_request="Create proposal",
@@ -84,7 +75,4 @@ def test_execute_failure():
 
     assert len(result.errors) == 1
 
-    assert (
-        result.errors[0]
-        == "Document generation failed"
-    )
+    assert result.errors[0] == "Document generation failed"

@@ -25,14 +25,10 @@ def list_documents() -> list[DocumentInfo]:
     documents = storage.list_documents()
 
     return [
-
         DocumentInfo(
-
             filename=document.name,
-
             size=document.stat().st_size,
         )
-
         for document in documents
     ]
 
@@ -47,19 +43,14 @@ def download_document(
     if not storage.exists(filename):
 
         raise HTTPException(
-
             status_code=404,
-
             detail="Document not found.",
         )
 
     path = storage.get_path(filename)
 
     return FileResponse(
-
         path,
-
         filename=filename,
-
         media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     )

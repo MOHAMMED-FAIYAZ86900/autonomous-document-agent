@@ -31,96 +31,56 @@ class TemplateManager:
         """
 
         templates = {
-
             "proposal": DocumentTemplate(
-
                 title="Project Proposal",
-
                 headings=[
-
                     "Executive Summary",
-
                     "Problem Statement",
-
                     "Objectives",
-
                     "Proposed Solution",
-
                     "Implementation Plan",
-
                     "Timeline",
-
                     "Budget",
-
                     "Conclusion",
                 ],
             ),
-
             "report": DocumentTemplate(
-
                 title="Technical Report",
-
                 headings=[
-
                     "Abstract",
-
                     "Introduction",
-
                     "Methodology",
-
                     "Results",
-
                     "Discussion",
-
                     "Conclusion",
-
                     "References",
                 ],
             ),
-
             "meeting_notes": DocumentTemplate(
-
                 title="Meeting Minutes",
-
                 headings=[
-
                     "Date",
-
                     "Attendees",
-
                     "Agenda",
-
                     "Discussion",
-
                     "Action Items",
-
                     "Next Meeting",
                 ],
             ),
-
             "summary": DocumentTemplate(
-
                 title="Summary",
-
                 headings=[
-
                     "Overview",
-
                     "Key Points",
-
                     "Conclusion",
                 ],
             ),
         }
 
         return templates.get(
-
             document_type,
-
             DocumentTemplate(
-
                 title="Generated Document",
-
                 headings=[],
             ),
         )

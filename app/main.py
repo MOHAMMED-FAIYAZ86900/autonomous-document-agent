@@ -10,10 +10,7 @@ from app.api.routers.agent import router as agent_router
 from app.api.routers.documents import router as documents_router
 from app.api.routers.health import router as health_router
 from app.core.config import settings
-from app.core.lifecycle import (
-    initialize_application,
-    shutdown_application,
-)
+from app.core.lifecycle import initialize_application, shutdown_application
 
 
 @asynccontextmanager
@@ -30,8 +27,7 @@ app = FastAPI(
     title=settings.app_name,
     version=settings.app_version,
     description=(
-    "Autonomous AI Document Generation Agent "
-    "built with FastAPI and Groq."
+        "Autonomous AI Document Generation Agent " "built with FastAPI and Groq."
     ),
     lifespan=lifespan,
 )
@@ -48,9 +44,7 @@ async def root() -> dict[str, str]:
     Root endpoint.
     """
     return {
-        "message": (
-            f"Welcome to {settings.app_name}"
-        ),
+        "message": (f"Welcome to {settings.app_name}"),
         "version": settings.app_version,
         "docs": "/docs",
         "health": "/health",

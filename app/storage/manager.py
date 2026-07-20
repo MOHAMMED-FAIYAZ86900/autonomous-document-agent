@@ -16,21 +16,18 @@ class StorageManager:
     """
 
     def __init__(
-    self,
-    storage_path: Path | None = None,
-) -> None:
+        self,
+        storage_path: Path | None = None,
+    ) -> None:
 
         self.logger = get_logger(__name__)
 
-        self.storage_path = (
-        storage_path
-        or settings.output_dir
-    )
+        self.storage_path = storage_path or settings.output_dir
 
         self.storage_path.mkdir(
-        parents=True,
-        exist_ok=True,
-    )
+            parents=True,
+            exist_ok=True,
+        )
 
     def save_document(
         self,
@@ -41,9 +38,7 @@ class StorageManager:
         Save a DOCX document.
         """
 
-        output_path = (
-            self.storage_path / filename
-        )
+        output_path = self.storage_path / filename
 
         document.save(output_path)
 
@@ -62,9 +57,7 @@ class StorageManager:
         Check whether a document exists.
         """
 
-        return (
-            self.storage_path / filename
-        ).exists()
+        return (self.storage_path / filename).exists()
 
     def get_path(
         self,
@@ -75,9 +68,7 @@ class StorageManager:
         of a stored document.
         """
 
-        return (
-            self.storage_path / filename
-        )
+        return self.storage_path / filename
 
     def list_documents(
         self,
@@ -86,6 +77,4 @@ class StorageManager:
         Return all generated DOCX files.
         """
 
-        return sorted(
-            self.storage_path.glob("*.docx")
-        )
+        return sorted(self.storage_path.glob("*.docx"))

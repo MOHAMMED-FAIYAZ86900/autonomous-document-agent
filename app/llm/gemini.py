@@ -7,12 +7,8 @@ from google import genai
 from app.core.config import settings
 from app.core.exceptions import LLMError
 from app.core.logging import get_logger
-
 from app.llm.base import LLMProvider
-from app.llm.schemas import (
-    LLMRequest,
-    LLMResponse,
-)
+from app.llm.schemas import LLMRequest, LLMResponse
 
 
 class GeminiProvider(LLMProvider):
@@ -23,9 +19,7 @@ class GeminiProvider(LLMProvider):
     def __init__(self) -> None:
         self.logger = get_logger(__name__)
 
-        self.client = genai.Client(
-            api_key=settings.gemini_api_key
-        )
+        self.client = genai.Client(api_key=settings.gemini_api_key)
 
         self.model_name = settings.model_name
         self.logger.info(f"Using Gemini model: {self.model_name}")
@@ -47,9 +41,7 @@ class GeminiProvider(LLMProvider):
             )
 
             if not response.text:
-                raise LLMError(
-                    "Gemini returned an empty response."
-                )
+                raise LLMError("Gemini returned an empty response.")
 
             self.logger.info("Received response from Gemini.")
 
@@ -61,10 +53,6 @@ class GeminiProvider(LLMProvider):
             )
 
         except Exception as exc:
-            self.logger.exception(
-                "Gemini request failed."
-            )
+            self.logger.exception("Gemini request failed.")
 
-            raise LLMError(
-                f"Gemini generation failed: {exc}"
-            ) from exc
+            raise LLMError(f"Gemini generation failed: {exc}") from exc

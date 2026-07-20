@@ -31,9 +31,7 @@ class FailingLLMService:
         self,
         document: str,
     ):
-        raise RuntimeError(
-            "Reflection failed"
-        )
+        raise RuntimeError("Reflection failed")
 
 
 def test_review_success():
@@ -42,9 +40,7 @@ def test_review_success():
     the generated document successfully.
     """
 
-    reflector = Reflector(
-        llm_service=FakeLLMService()
-    )
+    reflector = Reflector(llm_service=FakeLLMService())
 
     state = AgentState(
         user_request="Create proposal",
@@ -55,10 +51,7 @@ def test_review_success():
 
     assert result.status == "reviewed"
 
-    assert (
-        result.reflection
-        == "Document looks good with minor improvements."
-    )
+    assert result.reflection == "Document looks good with minor improvements."
 
     assert result.errors == []
 
@@ -69,9 +62,7 @@ def test_review_failure():
     LLM failures gracefully.
     """
 
-    reflector = Reflector(
-        llm_service=FailingLLMService()
-    )
+    reflector = Reflector(llm_service=FailingLLMService())
 
     state = AgentState(
         user_request="Create proposal",
@@ -84,7 +75,4 @@ def test_review_failure():
 
     assert len(result.errors) == 1
 
-    assert (
-        result.errors[0]
-        == "Reflection failed"
-    )
+    assert result.errors[0] == "Reflection failed"

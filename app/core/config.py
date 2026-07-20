@@ -30,9 +30,7 @@ class Settings(BaseSettings):
     # Make optional
     groq_api_key: str | None = None
 
-    model_name: str = Field(
-        default="llama-3.3-70b-versatile"
-    )
+    model_name: str = Field(default="llama-3.3-70b-versatile")
 
     max_retries: int = Field(
         default=2,
@@ -46,9 +44,7 @@ class Settings(BaseSettings):
     # Storage
     # ----------------------------------------------------
 
-    output_dir: Path = Field(
-        default=Path("storage/generated_docs")
-    )
+    output_dir: Path = Field(default=Path("storage/generated_docs"))
 
     # ----------------------------------------------------
     # Pydantic Settings

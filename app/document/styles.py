@@ -3,7 +3,6 @@ Document styling utilities.
 """
 
 from docx.document import Document
-from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 from docx.shared import Inches, Pt
 
 

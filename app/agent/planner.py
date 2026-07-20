@@ -33,9 +33,7 @@ class Planner:
         state.status = "planning"
 
         try:
-            response = self.llm.generate_plan(
-                state.user_request
-            )
+            response = self.llm.generate_plan(state.user_request)
 
             state.execution_plan = response.content
 
@@ -47,14 +45,10 @@ class Planner:
 
         except Exception as exc:
 
-            self.logger.exception(
-                "Planning failed."
-            )
+            self.logger.exception("Planning failed.")
 
             state.status = "failed"
 
-            state.errors.append(
-                str(exc)
-            )
+            state.errors.append(str(exc))
 
             return state

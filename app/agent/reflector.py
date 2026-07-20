@@ -29,38 +29,28 @@ class Reflector:
         Review the generated document.
         """
 
-        self.logger.info(
-            "Reflection started."
-        )
+        self.logger.info("Reflection started.")
 
         state.status = "reflecting"
 
         try:
 
-            response = self.llm.reflect(
-            state.generated_content
-            )
+            response = self.llm.reflect(state.generated_content)
 
             state.reflection = response.content
 
             state.status = "reviewed"
 
-            self.logger.info(
-                "Reflection completed."
-            )
+            self.logger.info("Reflection completed.")
 
             return state
 
         except Exception as exc:
 
-            self.logger.exception(
-                "Reflection failed."
-            )
+            self.logger.exception("Reflection failed.")
 
             state.status = "failed"
 
-            state.errors.append(
-                str(exc)
-            )
+            state.errors.append(str(exc))
 
             return state

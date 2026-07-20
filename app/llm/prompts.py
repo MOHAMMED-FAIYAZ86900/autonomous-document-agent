@@ -12,8 +12,7 @@ class PromptManager:
 
     @staticmethod
     def planner_prompt(user_request: str) -> str:
-        return dedent(
-            f"""
+        return dedent(f"""
             You are an autonomous document planning agent.
 
             Your responsibilities are:
@@ -27,26 +26,22 @@ class PromptManager:
             User Request:
 
             {user_request}
-            """
-        ).strip()
+            """).strip()
 
     @staticmethod
     def document_prompt(execution_plan: str) -> str:
-        return dedent(
-            f"""
+        return dedent(f"""
             You are an expert technical writer.
 
             Generate a professional document using
             the following execution plan.
 
             {execution_plan}
-            """
-        ).strip()
+            """).strip()
 
     @staticmethod
     def reflection_prompt(document: str) -> str:
-        return dedent(
-            f"""
+        return dedent(f"""
             Review the following document.
 
             Check for:
@@ -60,5 +55,4 @@ class PromptManager:
             Document:
 
             {document}
-            """
-        ).strip()
+            """).strip()

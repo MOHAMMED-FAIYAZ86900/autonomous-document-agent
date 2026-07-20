@@ -2,8 +2,6 @@
 Unit tests for StorageManager.
 """
 
-from pathlib import Path
-
 from docx import Document
 
 from app.storage.manager import StorageManager

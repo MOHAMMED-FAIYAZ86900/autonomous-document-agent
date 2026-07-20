@@ -6,13 +6,8 @@ Acts as a wrapper around the selected LLM provider.
 
 from app.core.config import settings
 from app.core.logging import get_logger
-
 from app.llm.groq import GroqProvider
-
-from app.llm.schemas import (
-    LLMRequest,
-    LLMResponse,
-)
+from app.llm.schemas import LLMRequest, LLMResponse
 
 
 class LLMService:
@@ -32,9 +27,7 @@ class LLMService:
 
         else:
 
-            raise ValueError(
-                f"Unsupported LLM Provider: {provider}"
-            )
+            raise ValueError(f"Unsupported LLM Provider: {provider}")
 
     def generate(
         self,

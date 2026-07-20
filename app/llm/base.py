@@ -3,7 +3,9 @@ Base interface for all Large Language Model providers.
 """
 
 from abc import ABC, abstractmethod
+
 from app.llm.schemas import LLMRequest, LLMResponse
+
 
 class LLMProvider(ABC):
     """
@@ -12,7 +14,6 @@ class LLMProvider(ABC):
     Every provider (Gemini, OpenAI, Claude, etc.)
     must implement this interface.
     """
-
 
     @abstractmethod
     def generate(

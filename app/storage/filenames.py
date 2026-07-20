@@ -2,9 +2,9 @@
 Filename generation utilities.
 """
 
+import re
 from datetime import datetime
 from uuid import uuid4
-import re
 
 
 class FilenameGenerator:
@@ -40,16 +40,10 @@ class FilenameGenerator:
         Generate a unique filename.
         """
 
-        prefix = FilenameGenerator.sanitize(
-            document_type or "document"
-        )
+        prefix = FilenameGenerator.sanitize(document_type or "document")
 
-        timestamp = datetime.now().strftime(
-            "%Y%m%d_%H%M%S"
-        )
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
         unique = uuid4().hex[:6]
 
-        return (
-            f"{prefix}_{timestamp}_{unique}.docx"
-        )
+        return f"{prefix}_{timestamp}_{unique}.docx"

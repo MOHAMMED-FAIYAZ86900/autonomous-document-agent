@@ -10,10 +10,7 @@ class AgentRequest(BaseModel):
     Incoming agent request.
     """
 
-    user_request: str = Field(
-        ...,
-        description="Natural language request."
-    )
+    user_request: str = Field(..., description="Natural language request.")
 
 
 class AgentResponse(BaseModel):
@@ -25,6 +22,7 @@ class AgentResponse(BaseModel):
     generated_content: str | None
     reflection: str | None
     errors: list[str]
+
 
 class DocumentInfo(BaseModel):
     """

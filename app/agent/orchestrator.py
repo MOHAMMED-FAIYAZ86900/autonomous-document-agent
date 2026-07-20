@@ -33,9 +33,7 @@ class AgentOrchestrator:
 
         self.logger.info("Agent execution started.")
 
-        state = AgentState(
-            user_request=user_request
-        )
+        state = AgentState(user_request=user_request)
 
         # Step 1: Planning
         state = self.planner.plan(state)
@@ -63,8 +61,6 @@ class AgentOrchestrator:
 
         state.status = "completed"
 
-        self.logger.info(
-            "Agent execution completed."
-        )
+        self.logger.info("Agent execution completed.")
 
         return state

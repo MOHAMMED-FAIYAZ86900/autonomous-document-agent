@@ -38,10 +38,7 @@ class DocumentFormatter:
             if not line:
                 continue
 
-            if (
-                len(line) < 60
-                and not line.endswith(".")
-            ):
+            if len(line) < 60 and not line.endswith("."):
 
                 blocks.append(
                     DocumentBlock(

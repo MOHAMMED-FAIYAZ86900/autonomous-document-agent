@@ -5,10 +5,7 @@ Agent API endpoints.
 from fastapi import APIRouter, HTTPException
 
 from app.agent.orchestrator import AgentOrchestrator
-from app.schemas.api import (
-    AgentRequest,
-    AgentResponse,
-)
+from app.schemas.api import AgentRequest, AgentResponse
 
 router = APIRouter(
     prefix="/agent",
@@ -29,9 +26,7 @@ def run_agent(
     Execute the autonomous AI agent.
     """
 
-    state = agent.run(
-        request.user_request
-    )
+    state = agent.run(request.user_request)
 
     if state.status == "failed":
 

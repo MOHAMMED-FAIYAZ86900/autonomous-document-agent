@@ -35,30 +35,22 @@ class Executor:
 
         try:
 
-            response = self.llm.generate_document(
-                state.execution_plan
-            )
+            response = self.llm.generate_document(state.execution_plan)
 
             state.generated_content = response.content
 
             state.status = "executed"
 
-            self.logger.info(
-                "AI content generated successfully."
-            )
+            self.logger.info("AI content generated successfully.")
 
             return state
 
         except Exception as exc:
 
-            self.logger.exception(
-                "Execution failed."
-            )
+            self.logger.exception("Execution failed.")
 
             state.status = "failed"
 
-            state.errors.append(
-                str(exc)
-            )
+            state.errors.append(str(exc))
 
             return state

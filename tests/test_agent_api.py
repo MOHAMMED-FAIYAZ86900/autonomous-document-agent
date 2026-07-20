@@ -4,10 +4,9 @@ Tests for the Agent API.
 
 from fastapi.testclient import TestClient
 
-from app.main import app
-from app.agent.state import AgentState
 import app.api.routers.agent as agent_router
-
+from app.agent.state import AgentState
+from app.main import app
 
 client = TestClient(app)
 
@@ -43,9 +42,7 @@ def test_agent_success():
 
     response = client.post(
         "/agent/run",
-        json={
-            "user_request": "Create an AI report."
-        },
+        json={"user_request": "Create an AI report."},
     )
 
     agent_router.agent = original
@@ -67,9 +64,7 @@ def test_agent_failure():
 
     response = client.post(
         "/agent/run",
-        json={
-            "user_request": "Create report"
-        },
+        json={"user_request": "Create report"},
     )
 
     agent_router.agent = original

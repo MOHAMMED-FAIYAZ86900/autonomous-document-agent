@@ -13,10 +13,7 @@ class FakeLLMService:
     """
 
     def generate_plan(self, user_request: str) -> LLMResponse:
-        return LLMResponse(
-        content="Fake execution plan",
-        model="fake-gemini"
-    )
+        return LLMResponse(content="Fake execution plan", model="fake-gemini")
 
 
 class FailingLLMService:
@@ -34,22 +31,15 @@ def test_plan_success():
     when planning succeeds.
     """
 
-    planner = Planner(
-        llm_service=FakeLLMService()
-    )
+    planner = Planner(llm_service=FakeLLMService())
 
-    state = AgentState(
-        user_request="Write a project proposal"
-    )
+    state = AgentState(user_request="Write a project proposal")
 
     result = planner.plan(state)
 
     assert result.status == "planned"
 
-    assert (
-        result.execution_plan
-        == "Fake execution plan"
-    )
+    assert result.execution_plan == "Fake execution plan"
 
     assert result.errors == []
 
@@ -59,13 +49,9 @@ def test_plan_failure():
     Planner should handle LLM failures.
     """
 
-    planner = Planner(
-        llm_service=FailingLLMService()
-    )
+    planner = Planner(llm_service=FailingLLMService())
 
-    state = AgentState(
-        user_request="Write proposal"
-    )
+    state = AgentState(user_request="Write proposal")
 
     result = planner.plan(state)
 
@@ -73,7 +59,4 @@ def test_plan_failure():
 
     assert len(result.errors) == 1
 
-    assert (
-        result.errors[0]
-        == "Gemini unavailable"
-    )
+    assert result.errors[0] == "Gemini unavailable"

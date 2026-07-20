@@ -18,9 +18,7 @@ def initialize_application() -> None:
     if settings.llm_provider == "groq":
 
         if not settings.groq_api_key:
-            raise RuntimeError(
-                "GROQ_API_KEY is not configured."
-            )
+            raise RuntimeError("GROQ_API_KEY is not configured.")
 
     Path(settings.output_dir).mkdir(
         parents=True,

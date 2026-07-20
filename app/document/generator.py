@@ -2,10 +2,7 @@
 Microsoft Word document generator.
 """
 
-from pathlib import Path
-
 from app.agent.state import AgentState
-from app.core.config import settings
 from app.core.logging import get_logger
 from app.document.builder import DocumentBuilder
 from app.storage.manager import StorageManager
