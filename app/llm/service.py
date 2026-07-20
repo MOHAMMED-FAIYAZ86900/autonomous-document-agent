@@ -23,9 +23,7 @@ class LLMService:
         if provider == "groq":
             self.provider = GroqProvider()
         else:
-            raise ValueError(
-                f"Unsupported LLM Provider: {provider}"
-            )
+            raise ValueError(f"Unsupported LLM Provider: {provider}")
 
     def generate(
         self,
@@ -44,24 +42,18 @@ class LLMService:
         prompt: str,
     ) -> LLMResponse:
 
-        return self.generate(
-            LLMRequest(prompt=prompt)
-        )
+        return self.generate(LLMRequest(prompt=prompt))
 
     def generate_document(
         self,
         prompt: str,
     ) -> LLMResponse:
 
-        return self.generate(
-            LLMRequest(prompt=prompt)
-        )
+        return self.generate(LLMRequest(prompt=prompt))
 
     def reflect(
         self,
         prompt: str,
     ) -> LLMResponse:
 
-        return self.generate(
-            LLMRequest(prompt=prompt)
-        )
+        return self.generate(LLMRequest(prompt=prompt))

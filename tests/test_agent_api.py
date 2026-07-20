@@ -4,8 +4,8 @@ Tests for the Agent API.
 
 from fastapi.testclient import TestClient
 
-import app.api.routers.agent as agent_router
 from app.agent.state import AgentState
+from app.api.routers.agent import get_agent
 from app.main import app
 
 client = TestClient(app)
@@ -15,7 +15,6 @@ class FakeAgent:
     def run(self, request: str):
 
         state = AgentState(user_request=request)
-
         state.status = "completed"
         state.generated_content = "Generated test document."
         state.reflection = "Looks good."
@@ -27,7 +26,6 @@ class FakeFailedAgent:
     def run(self, request: str):
 
         state = AgentState(user_request=request)
-
         state.status = "failed"
         state.errors = ["Planner failed"]
 
@@ -36,16 +34,14 @@ class FakeFailedAgent:
 
 def test_agent_success():
 
-    original = agent_router.agent
-
-    agent_router.agent = FakeAgent()
+    app.dependency_overrides[get_agent] = lambda: FakeAgent()
 
     response = client.post(
         "/agent/run",
         json={"user_request": "Create an AI report."},
     )
 
-    agent_router.agent = original
+    app.dependency_overrides.clear()
 
     assert response.status_code == 200
 
@@ -58,16 +54,14 @@ def test_agent_success():
 
 def test_agent_failure():
 
-    original = agent_router.agent
-
-    agent_router.agent = FakeFailedAgent()
+    app.dependency_overrides[get_agent] = lambda: FakeFailedAgent()
 
     response = client.post(
         "/agent/run",
         json={"user_request": "Create report"},
     )
 
-    agent_router.agent = original
+    app.dependency_overrides.clear()
 
     assert response.status_code == 500
 

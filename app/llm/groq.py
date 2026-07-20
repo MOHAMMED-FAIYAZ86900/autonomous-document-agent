@@ -21,9 +21,7 @@ class GroqProvider(LLMProvider):
         self.model_name = settings.model_name
         self.client = None
 
-        self.logger.info(
-            "Groq provider initialized (lazy client creation)."
-        )
+        self.logger.info("Groq provider initialized (lazy client creation).")
 
     def _get_client(self):
         """
@@ -33,13 +31,9 @@ class GroqProvider(LLMProvider):
         if self.client is None:
 
             if not settings.groq_api_key:
-                raise LLMError(
-                    "GROQ_API_KEY is not configured."
-                )
+                raise LLMError("GROQ_API_KEY is not configured.")
 
-            self.client = Groq(
-                api_key=settings.groq_api_key
-            )
+            self.client = Groq(api_key=settings.groq_api_key)
 
         return self.client
 
@@ -79,9 +73,7 @@ class GroqProvider(LLMProvider):
             content = response.choices[0].message.content
 
             if not content:
-                raise LLMError(
-                    "Groq returned an empty response."
-                )
+                raise LLMError("Groq returned an empty response.")
 
             return LLMResponse(
                 content=content,
@@ -92,10 +84,6 @@ class GroqProvider(LLMProvider):
 
         except Exception as exc:
 
-            self.logger.exception(
-                "Groq request failed."
-            )
+            self.logger.exception("Groq request failed.")
 
-            raise LLMError(
-                f"Groq generation failed: {exc}"
-            ) from exc
+            raise LLMError(f"Groq generation failed: {exc}") from exc
