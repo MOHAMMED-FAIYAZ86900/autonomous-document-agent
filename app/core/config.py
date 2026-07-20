@@ -27,7 +27,8 @@ class Settings(BaseSettings):
 
     llm_provider: str = Field(default="groq")
 
-    groq_api_key: str
+    # Make optional
+    groq_api_key: str | None = None
 
     model_name: str = Field(
         default="llama-3.3-70b-versatile"
