@@ -17,14 +17,31 @@ class GroqProvider(LLMProvider):
     """
 
     def __init__(self):
-
         self.logger = get_logger(__name__)
-
-        self.client = Groq(api_key=settings.groq_api_key)
-
         self.model_name = settings.model_name
+        self.client = None
 
-        self.logger.info(f"Using Groq model: {self.model_name}")
+        self.logger.info(
+            "Groq provider initialized (lazy client creation)."
+        )
+
+    def _get_client(self):
+        """
+        Lazily create the Groq client only when required.
+        """
+
+        if self.client is None:
+
+            if not settings.groq_api_key:
+                raise LLMError(
+                    "GROQ_API_KEY is not configured."
+                )
+
+            self.client = Groq(
+                api_key=settings.groq_api_key
+            )
+
+        return self.client
 
     def generate(
         self,
@@ -33,12 +50,11 @@ class GroqProvider(LLMProvider):
 
         try:
 
-            self.logger.info("Sending request to Groq.")
+            client = self._get_client()
 
             messages = []
 
             if request.system_prompt:
-
                 messages.append(
                     {
                         "role": "system",
@@ -53,7 +69,7 @@ class GroqProvider(LLMProvider):
                 }
             )
 
-            response = self.client.chat.completions.create(
+            response = client.chat.completions.create(
                 model=self.model_name,
                 messages=messages,
                 temperature=request.temperature,
@@ -63,10 +79,9 @@ class GroqProvider(LLMProvider):
             content = response.choices[0].message.content
 
             if not content:
-
-                raise LLMError("Groq returned an empty response.")
-
-            self.logger.info("Received response from Groq.")
+                raise LLMError(
+                    "Groq returned an empty response."
+                )
 
             return LLMResponse(
                 content=content,
@@ -77,6 +92,10 @@ class GroqProvider(LLMProvider):
 
         except Exception as exc:
 
-            self.logger.exception("Groq request failed.")
+            self.logger.exception(
+                "Groq request failed."
+            )
 
-            raise LLMError(f"Groq generation failed: {exc}") from exc
+            raise LLMError(
+                f"Groq generation failed: {exc}"
+            ) from exc

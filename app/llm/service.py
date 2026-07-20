@@ -1,6 +1,5 @@
 """
 LLM service layer.
-
 Acts as a wrapper around the selected LLM provider.
 """
 
@@ -22,12 +21,11 @@ class LLMService:
         provider = settings.llm_provider.lower()
 
         if provider == "groq":
-
             self.provider = GroqProvider()
-
         else:
-
-            raise ValueError(f"Unsupported LLM Provider: {provider}")
+            raise ValueError(
+                f"Unsupported LLM Provider: {provider}"
+            )
 
     def generate(
         self,
@@ -35,7 +33,7 @@ class LLMService:
     ) -> LLMResponse:
 
         self.logger.info(
-            "Sending request to %s provider.",
+            "Using provider: %s",
             settings.llm_provider.upper(),
         )
 
@@ -46,30 +44,24 @@ class LLMService:
         prompt: str,
     ) -> LLMResponse:
 
-        request = LLMRequest(
-            prompt=prompt,
+        return self.generate(
+            LLMRequest(prompt=prompt)
         )
-
-        return self.generate(request)
 
     def generate_document(
         self,
         prompt: str,
     ) -> LLMResponse:
 
-        request = LLMRequest(
-            prompt=prompt,
+        return self.generate(
+            LLMRequest(prompt=prompt)
         )
-
-        return self.generate(request)
 
     def reflect(
         self,
         prompt: str,
     ) -> LLMResponse:
 
-        request = LLMRequest(
-            prompt=prompt,
+        return self.generate(
+            LLMRequest(prompt=prompt)
         )
-
-        return self.generate(request)
