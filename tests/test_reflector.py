@@ -12,13 +12,13 @@ class FakeLLMService:
     Fake LLM used for testing.
     """
 
-    def review_document(
+    def reflect(
         self,
         document: str,
     ) -> LLMResponse:
         return LLMResponse(
             content="Document looks good with minor improvements.",
-            model="fake-gemini",
+            model="fake-groq",
         )
 
 
@@ -27,7 +27,7 @@ class FailingLLMService:
     Fake LLM that always fails.
     """
 
-    def review_document(
+    def reflect(
         self,
         document: str,
     ):
