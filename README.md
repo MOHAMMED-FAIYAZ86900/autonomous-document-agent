@@ -584,7 +584,7 @@ https://github.com/MOHAMMED-FAIYAZ86900
 
 LinkedIn
 
-(Add Your LinkedIn URL)
+https://www.linkedin.com/in/mohammed-faiyaz/
 
 ---
 
